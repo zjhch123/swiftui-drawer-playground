@@ -14,18 +14,12 @@ class ContentViewModel: ObservableObject {
         let rootViewController = (UIApplication.shared.connectedScenes.first
                                   as? UIWindowScene)?.windows.first?.rootViewController
 
-        let drawerContentNavigationController = UINavigationController()
-        drawerContentNavigationController.isNavigationBarHidden = false
-        drawerContentNavigationController.setViewControllers([
-            UIHostingController(
-                rootView: DrawerContentView(
-                    navigationController: drawerContentNavigationController
-                )
-            )
-        ], animated: false)
+        let contentVC = UIHostingController(
+            rootView: DrawerLandingView()
+        )
 
         rootViewController?.present(
-            MyDrawerController(contentVC: drawerContentNavigationController),
+            MyDrawerController(contentVC: contentVC),
             animated: true
         )
     }
