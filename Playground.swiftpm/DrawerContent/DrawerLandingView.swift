@@ -12,27 +12,36 @@ struct DrawerLandingView: View {
     @StateObject var router = DrawerViewRouter()
     @Environment(\.dismiss) var dismiss
 
-    var body: some View {
-        NavigationStack(path: $router.navPath) {
+    var Content: some View {
+        VStack(spacing: 4) {
             Text("DrawerLandingView")
-            Button("Start!") {
+            Button("Close") {
+                dismiss()
+            }
+            Button("Start") {
                 router.navigate(to: .loading)
             }
-            .navigationDestination(for: Destination.self) { dest in
-                switch dest {
-                case .loading:
-                    DrawerLoadingView()
-                        .navigationBarBackButtonHidden()
-                case .success:
-                    DrawerSuccessView(dismiss: dismiss)
-                        .navigationBarBackButtonHidden()
-                case .failure:
-                    DrawerFailureView(dismiss: dismiss)
-                        .navigationBarBackButtonHidden()
-                default:
-                    AnyView(EmptyView())
-                }
+        }
+        .navigationDestination(for: Destination.self) { dest in
+            switch dest {
+            case .loading:
+                DrawerLoadingView()
+                    .navigationBarBackButtonHidden()
+            case .success:
+                DrawerSuccessView(dismiss: dismiss)
+                    .navigationBarBackButtonHidden()
+            case .failure:
+                DrawerFailureView(dismiss: dismiss)
+                    .navigationBarBackButtonHidden()
+            default:
+                AnyView(EmptyView())
             }
+        }
+    }
+
+    var body: some View {
+        NavigationStack(path: $router.navPath) {
+            Content
         }.environmentObject(router)
     }
 }
