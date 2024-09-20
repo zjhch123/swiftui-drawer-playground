@@ -19,7 +19,7 @@ struct DrawerLandingView: View {
                 dismiss()
             }
             Button("Start") {
-                router.navigate(to: .loading)
+                router.navigate(to: .loading, animate: false)
             }
         }
         .navigationDestination(for: Destination.self) { dest in

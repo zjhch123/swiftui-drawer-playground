@@ -17,6 +17,7 @@ let package = Package(
             name: "Playground",
             targets: ["AppModule"],
             bundleIdentifier: "tech.jiahao.Playground.Playground",
+            teamIdentifier: "RE4CMN34PG",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .leaf),

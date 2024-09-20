@@ -20,7 +20,7 @@ struct DrawerFailureView: View {
         }
 
         Button("Retry") {
-            router.navigateBack()
+            router.navigateBack(animate: false)
         }
 
         Button("Back to home") {

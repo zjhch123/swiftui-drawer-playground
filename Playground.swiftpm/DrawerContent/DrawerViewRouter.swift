@@ -17,12 +17,20 @@ enum Destination: Codable, Hashable {
 final class DrawerViewRouter: ObservableObject {
     @Published var navPath = NavigationPath()
 
-    func navigate(to destination: Destination) {
-        navPath.append(destination)
+    func navigate(to destination: Destination, animate: Bool = true) {
+        var transaction = Transaction()
+        transaction.disablesAnimations = !animate
+        withTransaction(transaction) {
+            navPath.append(destination)
+        }
     }
 
-    func navigateBack() {
-        navPath.removeLast()
+    func navigateBack(animate: Bool = true) {
+        var transaction = Transaction()
+        transaction.disablesAnimations = !animate
+        withTransaction(transaction) {
+            navPath.removeLast()
+        }
     }
 
     func navigateToRoot() {

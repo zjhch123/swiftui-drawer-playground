@@ -16,10 +16,10 @@ struct DrawerLoadingView: View {
             Text("DrawerLoadingView")
 
             Button("Success") {
-                router.navigate(to: .success)
+                router.navigate(to: .success, animate: false)
             }
             Button("Failure") {
-                router.navigate(to: .failure)
+                router.navigate(to: .failure, animate: false)
             }
         }
     }
