@@ -7,10 +7,20 @@
 
 import UIKit
 
+protocol DrawerControllerDelegate: AnyObject {
+    /// Called when drawer is being dismissed.
+    func drawerControllerWillDismiss(_ controller: DrawerController)
+
+    /// Called after drawer has been dismissed.
+    func drawerControllerDidDismiss(_ controller: DrawerController)
+}
+
 class DrawerController: UIViewController {
     let backgroundView = UIView()
     let drawerView = UIView()
     let contentVC: UIViewController
+
+    public weak var delegate: DrawerControllerDelegate?
 
     open var preferredContentHeight: CGFloat {
         Constants.preferredContentHeight
@@ -64,6 +74,22 @@ class DrawerController: UIViewController {
 
         setupViews()
         setupGesture()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if isBeingDismissed {
+            delegate?.drawerControllerWillDismiss(self)
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        if isBeingDismissed {
+            delegate?.drawerControllerDidDismiss(self)
+        }
     }
 
     private func setupViews() {

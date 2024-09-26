@@ -18,9 +18,19 @@ class ContentViewModel: ObservableObject {
             rootView: DrawerLandingView()
         )
 
-        rootViewController?.present(
-            MyDrawerController(contentVC: contentVC),
-            animated: true
-        )
+        let myDC = MyDrawerController(contentVC: contentVC)
+        myDC.delegate = self
+
+        rootViewController?.present(myDC, animated: true)
+    }
+}
+
+extension ContentViewModel: DrawerControllerDelegate {
+    func drawerControllerWillDismiss(_ controller: DrawerController) {
+        print("will dismiss")
+    }
+    
+    func drawerControllerDidDismiss(_ controller: DrawerController) {
+        print("did dismiss")
     }
 }
